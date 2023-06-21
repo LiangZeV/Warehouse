@@ -12,9 +12,9 @@ public class Commodity {
     Integer shelfLife;
     Integer purchaseCatch;
     Integer id;
-    Integer characteristic;
-
-
+    String characteristic;
+    String type;
+    Integer cost;
 
 
 }

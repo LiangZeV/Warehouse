@@ -1,0 +1,6 @@
+warehouse\dao\WarehouseMapper.class
+warehouse\Application.class
+warehouse\sevice\Impl\WarehouseServiceImpl.class
+warehouse\controller\WarehouseController.class
+warehouse\sevice\WarehouseService.class
+entity\Commodity.class

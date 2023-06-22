@@ -7,11 +7,12 @@ import java.util.List;
 public interface WarehouseService {
 
     //维护成本价和标准售价
-    Boolean updatePrice();
-    Boolean updateCost();
+    Boolean updatePrice(Integer id, double price);
+
+    Boolean updateCost(Integer id, double Cost);
 
     //商品采购
-    Boolean saveCommodity();
+    Boolean saveCommodity(Commodity commodity);
 
     //显示商品全部信息
     List<Commodity> listCommodity();

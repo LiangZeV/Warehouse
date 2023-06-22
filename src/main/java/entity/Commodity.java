@@ -3,14 +3,16 @@ package entity;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class Commodity {
     String name;
     Integer inventory;
-    String productionDate;
+    Date productionDate;
     Double price;
     Integer shelfLife;
-    Integer purchaseCatch;
+    Integer purchaseLot;
     Integer id;
     String characteristic;
     String type;

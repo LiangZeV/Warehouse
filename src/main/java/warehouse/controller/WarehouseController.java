@@ -1,6 +1,7 @@
 package warehouse.controller;
 
 import entity.Commodity;
+import entity.ResiltInfo;
 import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,12 @@ public class WarehouseController {
     public Result showAll() {
         Result result = new Result();
         try {
-            List<Commodity> list = wm.listCommodity();
+            result.setObj(wm.listCommodity());
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
         } catch (Exception e) {
-
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
         }
         return result;
     }

@@ -15,10 +15,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     private WarehouseMapper wm;
 
+    Boolean k = false;
+
 
     @Override
     public Boolean updatePrice(Integer id, double price) {
-        Boolean k = false;
         try {
             wm.updatePrice(id,price);
             k = true;
@@ -30,7 +31,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Boolean updateCost(Integer id, double cost) {
-        Boolean k = false;
         try {
             wm.updateCost(id,cost);
             k = true;
@@ -42,7 +42,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Boolean saveCommodity(Commodity commodity) {
-        Boolean k = false;
         try {
             wm.saveCommodity(commodity);
             k = true;
@@ -56,7 +55,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<Commodity> listCommodity() {
         List<Commodity> commodities;
         try {
-            commodities = SortOutCommodities(wm.listCommodity());;
+            commodities = SortOutCommodities(wm.listCommodity());
         } catch (Exception e) {
             commodities = null;
             throw e;
@@ -78,12 +77,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Boolean removeCommodity(Integer id) {
-        Boolean k = false;
-        k = true;
         try {
-
+            wm.removeCommodity(id);
             k = true;
         } catch (Exception e) {
+            throw e;
         }
         return k;
     }
@@ -92,20 +90,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     /**
      * 计算当天和生产日期
-     * @return
      */
     private int finalPrice(Date date) {
         Date today = new Date(System.currentTimeMillis());
-        int days = (int) ((today.getTime() - date.getTime()) / (1000 * 3600 * 24));
-        return days;
+        return (int) ((today.getTime() - date.getTime()) / (1000 * 3600 * 24));
     }
 
     /**
      * 整理数组中的实际价格
-     * @param commodities
-     * @return
      */
-    ///这里有实现有问题，也可能是上半部分的问题。
     private List<Commodity> SortOutCommodities(List<Commodity> commodities) {
         for (int i = 0; i < commodities.size(); i++) {
             Commodity commodity = commodities.get(i);

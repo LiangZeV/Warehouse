@@ -7,20 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import warehouse.dao.WarehouseMapper;
+import warehouse.sevice.WarehouseService;
 
 import java.util.List;
 
 @RestController
 public class WarehouseController {
     @Autowired
-    private WarehouseMapper wm;
+    private WarehouseService ws;
 
     //展示所有的数据
     @GetMapping("/getCommodity")
     public Result showAll() {
         Result result = new Result();
         try {
-            result.setObj(wm.listCommodity());
+            result.setObj(ws.listCommodity());
             result.setMsg("查询成功");
             result.setCode(ResiltInfo.SUCCESS_CODE);
         } catch (Exception e) {

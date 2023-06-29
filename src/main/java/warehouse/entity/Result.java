@@ -1,5 +1,8 @@
-package entity;
+package warehouse.entity;
 
+/**
+ * @author zev
+ */
 public class Result {
     Integer code;
     Object obj;

@@ -1,10 +1,13 @@
-package entity;
+package warehouse.entity;
 
 
 import java.sql.Date;
 
 
 
+/**
+ * @author zev
+ */
 public class Commodity {
     String name;
     Integer inventory;

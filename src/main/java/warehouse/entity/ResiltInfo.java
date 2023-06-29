@@ -1,5 +1,8 @@
-package entity;
+package warehouse.entity;
 
+/**
+ * @author zev
+ */
 public class ResiltInfo {
     public static final int SUCCESS_CODE = 2000;
     public static final int LOST_CODE = 2001;

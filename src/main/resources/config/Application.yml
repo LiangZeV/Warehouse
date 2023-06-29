@@ -39,3 +39,27 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+Appenders:
+  Console:  #输出到控制台
+    name: CONSOLE #Appender命名
+    target: SYSTEM_OUT
+    PatternLayout:
+      pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
+  RollingFile: # 输出到文件，超过256MB归档
+    - name: ROLLING_FILE
+      ignoreExceptions: false
+      fileName: ./logs/hhmt-cpa.log
+      filePattern: "./logs/$${date:yyyy-MM}/hhmt-cpa-%d{yyyy-MM-dd}-%i.log"
+      PatternLayout:
+        pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: "10 KB"
+      DefaultRolloverStrategy:
+        max: 1000
+Loggers:
+  Root:
+    level: info
+    AppenderRef:
+      - ref: CONSOLE

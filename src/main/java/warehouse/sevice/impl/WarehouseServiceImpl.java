@@ -1,6 +1,6 @@
 package warehouse.sevice.impl;
 
-import entity.Commodity;
+import warehouse.entity.Commodity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import warehouse.dao.WarehouseMapper;
@@ -10,6 +10,9 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * @author zev
+ */
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
 
@@ -68,7 +71,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<Commodity> listCommodity() {
         List<Commodity> commodities;
         try {
-            commodities = SortOutCommodities(wm.listCommodity());
+            commodities = sortOutCommodities(wm.listCommodity());
         } catch (Exception e) {
             commodities = null;
         }
@@ -79,7 +82,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<Commodity> listSpecifiedCommodity(String key) {
         List<Commodity> commodities;
         try {
-            commodities = SortOutCommodities(wm.listSpecifiedCommodity(key));
+            commodities = sortOutCommodities(wm.listSpecifiedCommodity(key));
         } catch (Exception e) {
             commodities = null;
             throw e;
@@ -112,15 +115,19 @@ public class WarehouseServiceImpl implements WarehouseService {
     /**
      * 整理数组中的实际价格
      */
-    private List<Commodity> SortOutCommodities(List<Commodity> commodities) {
+    private List<Commodity> sortOutCommodities(List<Commodity> commodities) {
         for (int i = 0; i < commodities.size(); i++) {
             Commodity commodity = commodities.get(i);
             switch (commodity.getCharacteristic()) {
                 case "普通商品":
                     int day = finalPrice(commodity.getProductionDate());
                     int shelfLife = commodity.getShelfLife();
-                    if (shelfLife - day >= 3) {
+                    if (shelfLife - day <= 3 && shelfLife - day >= 0) {
                         commodity.setPrice(commodity.getPrice() * 0.5);
+                        commodities.set(i,commodity);
+                    }
+                    if (shelfLife - day <= 0) {
+                        commodity.setPrice(commodity.getPrice() * 0);
                         commodities.set(i,commodity);
                     }
                     break;

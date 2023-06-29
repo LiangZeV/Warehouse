@@ -1,12 +1,10 @@
 package warehouse.controller;
 
+import entity.Commodity;
 import entity.ResiltInfo;
 import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import warehouse.sevice.WarehouseService;
 
 @RestController
@@ -48,11 +46,81 @@ public class WarehouseController {
     }
 
     //增加商品
-
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public Result addCost(@RequestBody Commodity commodity){
+        Result result = new Result();
+        try {
+            ws.saveCommodity(commodity);
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
+        } catch (Exception e) {
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
+        }
+        return result;
+    }
     //维护成本价格
+    @RequestMapping(value = "/updatePrice",method = RequestMethod.PUT)
+    public Result updatePrice(@RequestBody Commodity commodity){
+        Result result = new Result();
+        try {
+            Integer id = commodity.getId();
+            Double price = commodity.getPrice();
+            ws.updatePrice(id,price);
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
+        } catch (Exception e) {
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
+        }
+        return result;
+    }
 
-    //维护标准售价
+    @RequestMapping(value = "/updateType",method = RequestMethod.PUT)
+    public Result updateType(@RequestBody Commodity commodity){
+        Result result = new Result();
+        try {
+            Integer id = commodity.getId();
+            String type = commodity.getType();
+            ws.updateType(id,type);
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
+        } catch (Exception e) {
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/updateCost",method = RequestMethod.PUT)
+    public Result updateCommodity(@RequestBody Commodity commodity){
+        Result result = new Result();
+        try {
+            Integer id = commodity.getId();
+            Double cost = commodity.getCost();
+            ws.updateCost(id,cost);
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
+        } catch (Exception e) {
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
+        }
+        return result;
+    }
 
     //删除商品
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.DELETE)
+    public Result removeCommodity(@PathVariable int id) {
+        Result result = new Result();
+        try {
+            ws.removeCommodity(id);
+            result.setMsg("查询成功");
+            result.setCode(ResiltInfo.SUCCESS_CODE);
+        } catch (Exception e) {
+            result.setCode(ResiltInfo.LOST_CODE);
+            result.setMsg("服务器异常，请重试。");
+        }
+        return result;
+    }
 
 }

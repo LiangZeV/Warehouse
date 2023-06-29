@@ -27,7 +27,7 @@ public interface WarehouseMapper {
     void saveCommodity(Commodity commodity);
 
     //删除商品
-    @Delete(value = "DELETE FROM `commodity_info` WHERE `id` = #{id}}")
+    @Delete(value = "DELETE FROM `commodity_info` WHERE `id` = #{id}")
     void removeCommodity(Integer id);
 
     //修改标准售价

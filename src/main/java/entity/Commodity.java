@@ -96,4 +96,20 @@ public class Commodity {
     public void setCost(Double cost) {
         this.cost = cost;
     }
+
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "name='" + name + '\'' +
+                ", inventory=" + inventory +
+                ", productionDate=" + productionDate +
+                ", price=" + price +
+                ", shelfLife=" + shelfLife +
+                ", purchaseLot=" + purchaseLot +
+                ", id=" + id +
+                ", characteristic='" + characteristic + '\'' +
+                ", type='" + type + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 }

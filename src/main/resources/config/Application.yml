@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  jackson:
+    date-format: yyyy-MM-dd
+
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
